@@ -1,0 +1,233 @@
+═══════════════════════════════════════════════════════════════════════════════
+EXERCÍCIO 5 - Encontrar e Corrigir Problemas de Encapsulamento
+═══════════════════════════════════════════════════════════════════════════════
+
+OBJETIVO:
+Analisar código COM PROBLEMAS e identificar erros relacionados a encapsulamento.
+Você deve descrever O QUÊ está errado e COMO corrigir.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+INSTRUÇÕES:
+1. Leia o código abaixo com cuidado
+2. Procure por problemas relacionados a:
+   - Atributos privados sendo acessados diretamente
+   - Falta de validação
+   - Falta de setters apropriados
+   - Propriedades sendo atribuídas sem setter
+3. Para CADA problema encontrado, responda:
+   - QUAL é o problema?
+   - ONDE está no código? (número da linha)
+   - POR QUÊ é um problema?
+   - COMO corrigir?
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CÓDIGO PROBLEMÁTICO: Classe ContaBancaria
+───────────────────────────────────────────
+
+ 1  class ContaBancaria:
+ 2      def __init__(self, titular, saldo_inicial):
+ 3          self.titular = titular
+ 4          self.__saldo = saldo_inicial
+ 5          self.__limite = 500
+ 6          self.__historico_transacoes = []
+ 7      
+ 8      @property
+ 9      def saldo(self):
+ 9          return self.__saldo
+10      
+11      def depositar(self, valor):
+12          if valor > 0:
+13              self.__saldo += valor
+14              self.__historico_transacoes.append(f"Depósito: +{valor}")
+15          else:
+16              print("Erro: valor inválido")
+17      
+18      def sacar(self, valor):
+19          if valor > 0 and valor <= self.__saldo:
+20              self.__saldo -= valor
+21              self.__historico_transacoes.append(f"Saque: -{valor}")
+22          else:
+23              print("Erro: saque inválido")
+24      
+25      def aumentar_limite(self, novo_limite):
+26          self.__limite = novo_limite
+27      
+28      def obter_historico(self):
+29          return self.__historico_transacoes
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ANÁLISE - Encontre os problemas:
+
+PROBLEMA 1:
+───────────
+Linha(s): ___________
+O que está errado: _______________________________________________________
+
+Por que é um problema: ___________________________________________________
+
+Como corrigir: __________________________________________________________
+
+
+PROBLEMA 2:
+───────────
+Linha(s): ___________
+O que está errado: _______________________________________________________
+
+Por que é um problema: ___________________________________________________
+
+Como corrigir: __________________________________________________________
+
+
+PROBLEMA 3:
+───────────
+Linha(s): ___________
+O que está errado: _______________________________________________________
+
+Por que é um problema: ___________________________________________________
+
+Como corrigir: __________________________________________________________
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CENÁRIOS DE TESTE - O que aconteceria com o código:
+────────────────────────────────────────────────────
+
+Teste seu entendimento com esses cenários:
+
+# Teste 1:
+conta = ContaBancaria("João", 1000)
+print(conta.saldo)          # Funciona? _______________
+conta.saldo = 999999        # Funciona? _______________
+                            # Resultado esperado: Erro! Não há setter
+
+# Teste 2:
+conta.aumentar_limite(-100)  # Funciona? _______________
+                             # Resultado esperado: Erro! Sem validação!
+
+# Teste 3:
+historico = conta.obter_historico()
+historico.append("FRAUDE")   # Funciona? _______________
+print(conta.obter_historico())
+                             # Resultado esperado: Perigo! Lista exposta!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+GABARITO (responda PRIMEIRO, depois confira):
+
+PROBLEMA 1: Falta validação no método aumentar_limite()
+───────────────────────────────────────────────────────
+Linha(s): 25-26
+O que está errado: O método aumentar_limite() aceita qualquer valor, até 
+                   negativos, sem validação.
+
+Por que é um problema: Um limite negativo não faz sentido e quebra a lógica
+                       da conta. Alguém (ou um bug) poderia definir um limite
+                       inválido.
+
+Como corrigir: Adicionar validação:
+    def aumentar_limite(self, novo_limite):
+        if novo_limite <= 0:
+            raise ValueError("Limite deve ser positivo")
+        self.__limite = novo_limite
+
+
+PROBLEMA 2: O método obter_historico() retorna a lista diretamente
+─────────────────────────────────────────────────────────────────
+Linha(s): 28-29
+O que está errado: Retorna uma referência para a lista privada, não uma cópia.
+                   Quem chama pode modificar o histórico de fora!
+
+Por que é um problema: Quebra o encapsulamento! A lista deveria ser imutável.
+                       Alguém pode fazer:
+                           historico = conta.obter_historico()
+                           historico.append("FRAUDE")
+                           # Histórico real foi alterado!
+
+Como corrigir: Retornar uma CÓPIA da lista:
+    def obter_historico(self):
+        return self.__historico_transacoes.copy()
+    
+    # Ou melhor ainda, retornar uma tupla:
+    def obter_historico(self):
+        return tuple(self.__historico_transacoes)
+
+
+PROBLEMA 3: O atributo saldo é read-only, mas sem mensagem clara
+───────────────────────────────────────────────────────────────
+Linha(s): 8-9
+O que está errado: Há um @property para saldo, mas nenhum @saldo.setter.
+                   Se alguém tentar fazer conta.saldo = 999999, vai dar um
+                   erro genérico.
+
+Por que é um problema: Não é encapsulamento intencionalmente design.
+                       Saldo DEVE ser alterado via depositar() e sacar(),
+                       não por atribuição direta. Mas falta deixar isso claro.
+
+Como corrigir: Adicionar um setter que lança erro com mensagem clara:
+    @saldo.setter
+    def saldo(self, valor):
+        raise ValueError("Saldo não pode ser alterado diretamente. "
+                        "Use depositar() ou sacar()")
+    
+    # Assim, quem tentar fazer conta.saldo = 999999 recebe uma mensagem
+    # explicativa em vez de AttributeError genérico.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+VERSÃO CORRIGIDA (para referência):
+
+class ContaBancaria:
+    def __init__(self, titular, saldo_inicial):
+        self.titular = titular
+        self.__saldo = saldo_inicial
+        self.__limite = 500
+        self.__historico_transacoes = []
+    
+    @property
+    def saldo(self):
+        return self.__saldo
+    
+    @saldo.setter
+    def saldo(self, valor):
+        raise ValueError("Saldo não pode ser alterado diretamente. "
+                        "Use depositar() ou sacar()")
+    
+    def depositar(self, valor):
+        if valor <= 0:
+            raise ValueError("Valor de depósito deve ser positivo")
+        self.__saldo += valor
+        self.__historico_transacoes.append(f"Depósito: +{valor}")
+        print(f"Depósito de R$ {valor} realizado!")
+    
+    def sacar(self, valor):
+        if valor <= 0:
+            raise ValueError("Valor de saque deve ser positivo")
+        if valor > self.__saldo:
+            raise ValueError("Saldo insuficiente")
+        self.__saldo -= valor
+        self.__historico_transacoes.append(f"Saque: -{valor}")
+        print(f"Saque de R$ {valor} realizado!")
+    
+    def aumentar_limite(self, novo_limite):
+        if novo_limite <= 0:
+            raise ValueError("Limite deve ser positivo")
+        self.__limite = novo_limite
+        print(f"Limite aumentado para R$ {novo_limite}")
+    
+    def obter_historico(self):
+        return self.__historico_transacoes.copy()
+
+═══════════════════════════════════════════════════════════════════════════════
+
+LIÇÕES APRENDIDAS:
+✅ Sempre valide inputs em métodos públicos
+✅ Retorne cópias de listas/dicts, não referências diretas
+✅ Propriedades read-only devem ter setters que levantam exceções
+✅ Mensagens de erro claras ajudam quem usa sua classe
+✅ Encapsulamento é INTENCIONAL - deixe claro o que é e o que não é permitido
+
+═══════════════════════════════════════════════════════════════════════════════

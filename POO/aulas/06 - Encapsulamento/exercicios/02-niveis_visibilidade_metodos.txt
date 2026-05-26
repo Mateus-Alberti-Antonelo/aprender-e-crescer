@@ -1,0 +1,124 @@
+═══════════════════════════════════════════════════════════════════════════════
+EXERCÍCIO 2 - Identificar Níveis de Visibilidade de MÉTODOS
+═══════════════════════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════════════════════
+
+INSTRUÇÕES:
+Para CADA método listado abaixo, responda qual é o nível de visibilidade dele.
+Escolha entre:
+  • PÚBLICO
+  • PROTEGIDO
+  • PRIVADO
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CLASSE 1: Usuario
+──────────────────
+
+class Usuario:
+    def __init__(self, nome, senha):
+        self.nome = nome
+        self.__senha = senha
+    
+    def login(self, senha_inserida):
+        return self.__verificar_senha(senha_inserida)
+    
+    def _registrar_tentativa_login(self):
+        print("Tentativa de login registrada")
+    
+    def __verificar_senha(self, senha):
+        return self.__senha == senha
+    
+    def get_nome(self):
+        return self.nome
+
+Identifique o nível de cada método:
+
+a) def login(self, senha_inserida)
+   Nível: _________________
+
+b) def _registrar_tentativa_login(self)
+   Nível: _________________
+
+c) def __verificar_senha(self, senha)
+   Nível: _________________
+
+d) def get_nome(self)
+   Nível: _________________
+
+
+CLASSE 2: Produto
+──────────────────
+
+class Produto:
+    def __init__(self, nome, preco_custo):
+        self.nome = nome
+        self.__preco_custo = preco_custo
+    
+    def obter_preco_venda(self):
+        return self.__calcular_margem()
+    
+    def __calcular_margem(self):
+        return self.__preco_custo * 1.5
+    
+    def _aplicar_desconto_interno(self, percentual):
+        return self.__preco_custo * (1 - percentual / 100)
+    
+    def exibir_info(self):
+        print(f"Produto: {self.nome}")
+
+Identifique o nível de cada método:
+
+a) def obter_preco_venda(self)
+   Nível: _________________
+
+b) def __calcular_margem(self)
+   Nível: _________________
+
+c) def _aplicar_desconto_interno(self, percentual)
+   Nível: _________________
+
+d) def exibir_info(self)
+   Nível: _________________
+
+
+CLASSE 3: Jogo
+────────────────
+
+class Jogo:
+    def __init__(self):
+        self.titulo = "Meu Jogo"
+        self.__pontos_jogador = 0
+    
+    def iniciar_jogo(self):
+        self._carregar_recursos()
+        self._criar_mundo()
+    
+    def _carregar_recursos(self):
+        print("Carregando imagens e sons...")
+    
+    def _criar_mundo(self):
+        print("Criando o mapa...")
+    
+    def __gerar_inimigos(self):
+        print("Inimigos gerados!")
+    
+    def adicionar_pontos(self, pontos):
+        self.__pontos_jogador += pontos
+
+Identifique o nível de cada método:
+
+a) def iniciar_jogo(self)
+   Nível: _________________
+
+b) def _carregar_recursos(self)
+   Nível: _________________
+
+c) def _criar_mundo(self)
+   Nível: _________________
+
+d) def __gerar_inimigos(self)
+   Nível: _________________
+
+e) def adicionar_pontos(self, pontos)
+   Nível: _________________

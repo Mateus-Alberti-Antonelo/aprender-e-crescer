@@ -1,0 +1,139 @@
+═══════════════════════════════════════════════════════════════════════════════
+EXERCÍCIO 3 - Criar Getters e Setters (Forma Tradicional, SEM @property)
+═══════════════════════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════════════════════
+
+INSTRUÇÕES:
+1. Complete a classe abaixo adicionando os métodos get e set
+2. Os atributos privados (com __) já estão definidos
+3. Crie métodos públicos para acessá-los
+4. Valide os dados NO SETTER (não deixe valores inválidos)
+5. NÃO use @property neste exercício
+
+═══════════════════════════════════════════════════════════════════════════════
+
+EXERCÍCIO: Classe Estudante
+────────────────────────────
+
+A classe abaixo representa um estudante. Complete-a adicionando getters e setters:
+
+class Estudante:
+    def __init__(self, nome, matricula, nota_inicial=0):
+        self.__nome = nome
+        self.__matricula = matricula
+        self.__nota = nota_inicial
+    
+    # COMPLETE AQUI - Adicione os métodos:
+    # 1. get_nome() - retorna o nome
+    # 2. set_nome(novo_nome) - valida se não está vazio
+    # 3. get_matricula() - retorna a matrícula (SEM setter, é constante!)
+    # 4. get_nota() - retorna a nota
+    # 5. set_nota(nova_nota) - valida se está entre 0 e 10
+
+═══════════════════════════════════════════════════════════════════════════════
+
+REQUISITOS PARA OS SETTERS:
+
+📋 set_nome(novo_nome):
+   - Valide se o nome NÃO está vazio
+   - Levante ValueError se estiver vazio
+   - Levante ValueError se não for string
+   - Exemplo de erro: "Nome não pode estar vazio!"
+
+📋 set_nota(nova_nota):
+   - Valide se é um número (int ou float)
+   - Valide se está entre 0 e 10
+   - Levante ValueError se não estiver no intervalo
+   - Exemplo de erro: "Nota deve estar entre 0 e 10"
+
+═══════════════════════════════════════════════════════════════════════════════
+
+EXEMPLO DE USO (como você espera que funcione):
+
+estudante = Estudante("Ana", "2024001", 7.5)
+
+# Getters funcionam:
+print(estudante.get_nome())       # Ana
+print(estudante.get_matricula())  # 2024001
+print(estudante.get_nota())       # 7.5
+
+# Setters com validação funcionam:
+estudante.set_nome("Ana Silva")
+estudante.set_nota(9.0)
+print(estudante.get_nota())       # 9.0
+
+# Setters rejeitam valores inválidos:
+estudante.set_nota(15)            # ValueError: Nota deve estar entre 0 e 10
+estudante.set_nota(-2)            # ValueError: Nota deve estar entre 0 e 10
+estudante.set_nome("")            # ValueError: Nome não pode estar vazio!
+estudante.get_matricula()         # Funciona (não há setter)
+# estudante.set_matricula("2024002")  # Erro! Método não existe
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ESTRUTURA DO QUE VOCÊ PRECISA ESCREVER:
+
+Complete a classe com esses métodos (escreva o código completo):
+
+def get_nome(self):
+    # Retorna o nome
+    ...
+
+def set_nome(self, novo_nome):
+    # Valida e depois atribui
+    ...
+
+def get_matricula(self):
+    # Retorna a matrícula
+    ...
+
+def get_nota(self):
+    # Retorna a nota
+    ...
+
+def set_nota(self, nova_nota):
+    # Valida e depois atribui
+    ...
+
+═══════════════════════════════════════════════════════════════════════════════
+
+GABARITO (responda PRIMEIRO, depois confira):
+
+class Estudante:
+    def __init__(self, nome, matricula, nota_inicial=0):
+        self.__nome = nome
+        self.__matricula = matricula
+        self.__nota = nota_inicial
+    
+    def get_nome(self):
+        return self.__nome
+    
+    def set_nome(self, novo_nome):
+        if not isinstance(novo_nome, str):
+            raise ValueError("Nome deve ser texto")
+        if novo_nome.strip() == "":
+            raise ValueError("Nome não pode estar vazio!")
+        self.__nome = novo_nome
+    
+    def get_matricula(self):
+        return self.__matricula
+    
+    def get_nota(self):
+        return self.__nota
+    
+    def set_nota(self, nova_nota):
+        if not isinstance(nova_nota, (int, float)):
+            raise ValueError("Nota deve ser um número")
+        if nova_nota < 0 or nova_nota > 10:
+            raise ValueError("Nota deve estar entre 0 e 10")
+        self.__nota = nova_nota
+
+═══════════════════════════════════════════════════════════════════════════════
+
+DICAS:
+✅ Use isinstance() para validar tipos
+✅ Use ValueError para erros de valor
+✅ Não esqueça de validar ANTES de atribuir
+✅ Teste seu código com valores inválidos!
+
+═══════════════════════════════════════════════════════════════════════════════
