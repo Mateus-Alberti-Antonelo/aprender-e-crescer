@@ -1,0 +1,88 @@
+================================================================
+EXERCÍCIO 2 — CONTA BANCÁRIA
+================================================================
+
+------------------------------------------------------------
+CONTEXTO
+------------------------------------------------------------
+Um banco tem vários tipos de conta. Toda conta, seja qual for,
+tem um titular e um saldo, e permite depositar dinheiro e
+consultar o saldo. Alguns tipos de conta, porém, têm
+comportamentos extras — a poupança, por exemplo, rende juros.
+
+Neste exercício você vai criar uma classe base genérica
+(Conta) e uma classe especializada (ContaPoupanca) que herda
+tudo da base e ACRESCENTA um comportamento exclusivo. É a
+prática de "herdar o comum + adicionar o específico".
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE FAZER
+------------------------------------------------------------
+
+1) Crie uma classe chamada "Conta" (classe base / mãe) com:
+   - Um método __init__ que recebe e armazena:
+       * titular  (texto, ex.: "Maria")
+       * saldo    (número, ex.: 1000.0)
+   - Um método depositar(valor) que SOMA o valor ao saldo
+     e imprime uma confirmação, por exemplo:
+       "Depósito de R$200 realizado. Novo saldo: R$1200"
+   - Um método ver_saldo() que imprime o saldo atual, por
+     exemplo:
+       "Saldo de Maria: R$1200"
+
+2) Crie uma classe chamada "ContaPoupanca" que HERDA de Conta.
+   - Ela herda titular, saldo, depositar() e ver_saldo()
+     automaticamente — NÃO reescreva nada disso.
+   - Adicione um método NOVO, exclusivo da poupança, chamado
+     render_juros(taxa) que:
+       * Calcula o rendimento: saldo * taxa
+       * Soma esse rendimento ao saldo
+       * Imprime quanto rendeu e o novo saldo, por exemplo:
+         "Juros de R$60 aplicados. Novo saldo: R$1260"
+     (A taxa é um número decimal: 0.05 significa 5%.)
+
+3) No final do arquivo, crie um teste:
+   - Crie uma ContaPoupanca com um titular e um saldo inicial.
+   - Faça um depósito usando depositar().
+   - Consulte o saldo com ver_saldo().
+   - Renda juros usando render_juros() com uma taxa à sua
+     escolha (ex.: 0.05).
+   - Consulte o saldo de novo para confirmar o rendimento.
+
+
+------------------------------------------------------------
+EXEMPLO DE EXECUÇÃO (valores podem variar)
+------------------------------------------------------------
+    Depósito de R$200 realizado. Novo saldo: R$1200
+    Saldo de Maria: R$1200
+    Juros de R$60.0 aplicados. Novo saldo: R$1260.0
+    Saldo de Maria: R$1260.0
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE ENTREGAR
+------------------------------------------------------------
+- Um único arquivo Python chamado:  exercicio2_conta.py
+- O arquivo deve conter:
+    1. A definição da classe Conta
+    2. A definição da classe ContaPoupanca (herdando de Conta)
+    3. O bloco de teste demonstrando depósito, consulta de
+       saldo e rendimento de juros
+- O código deve rodar sem erros.
+- Em um comentário no topo do arquivo, responda em uma frase:
+  "Por que NÃO precisei reescrever depositar() na poupança?"
+
+
+------------------------------------------------------------
+DESAFIO OPCIONAL (não obrigatório)
+------------------------------------------------------------
+Crie também uma classe "ContaSalario" que herda de Conta e
+tem um método próprio receber_salario(valor) que deposita o
+salário (dica: dentro dele você pode chamar o próprio
+depositar() herdado). Teste-a.
+
+OBSERVAÇÃO: guarde este exercício! A classe Conta será
+reaproveitada no Exercício 5, quando criaremos uma
+ContaCorrente que cobra taxa por depósito.
+
+================================================================

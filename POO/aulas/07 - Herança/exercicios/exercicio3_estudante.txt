@@ -1,0 +1,92 @@
+================================================================
+EXERCÍCIO 3 — PESSOA → ESTUDANTE
+================================================================
+
+------------------------------------------------------------
+CONTEXTO
+------------------------------------------------------------
+Nos exercícios anteriores, as classes filhas herdavam tudo da
+mãe sem mexer. Agora damos um passo a mais: a filha vai precisar
+de um atributo NOVO (que a mãe não tem) e vai querer fazer um
+método à SUA MANEIRA, sem jogar fora o que a mãe já fazia.
+
+Para isso usamos a função super(), que é uma referência à
+classe mãe. Com ela conseguimos:
+  - reaproveitar o construtor da mãe (super().__init__())
+  - reaproveitar e ESTENDER um método da mãe (super().metodo())
+
+Este exercício une dois conceitos da aula: super() e
+sobrescrita (override).
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE FAZER
+------------------------------------------------------------
+
+1) Crie uma classe chamada "Pessoa" (classe base / mãe) com:
+   - Um método __init__ que recebe e armazena:
+       * nome   (texto)
+       * idade  (número inteiro)
+   - Um método descrever() que imprime:
+       "Nome: <nome>, Idade: <idade>"
+     (substituindo pelos valores reais do objeto)
+
+2) Crie uma classe chamada "Estudante" que HERDA de Pessoa.
+   - O Estudante também tem um atributo a MAIS: curso (texto).
+   - Escreva o __init__ do Estudante recebendo nome, idade E
+     curso. Dentro dele:
+       * USE super().__init__(nome, idade) para deixar a mãe
+         cuidar de nome e idade (NÃO escreva self.nome = nome
+         nem self.idade = idade você mesmo).
+       * Em seguida, defina apenas o que é novo:
+         self.curso = curso
+
+3) SOBRESCREVA o método descrever() dentro do Estudante:
+   - Primeiro, chame super().descrever() para imprimir o nome
+     e a idade exatamente como a mãe faria.
+   - Depois, ACRESCENTE uma linha imprimindo o curso:
+       "Curso: <curso>"
+
+4) No final do arquivo, crie um teste:
+   - Crie um Estudante com nome, idade e curso à sua escolha.
+   - Chame o método descrever() desse estudante.
+   - (Opcional) Crie também uma Pessoa comum e chame
+     descrever() nela, para comparar as duas saídas.
+
+
+------------------------------------------------------------
+SAÍDA ESPERADA (com os valores do exemplo)
+------------------------------------------------------------
+    e = Estudante("Lia", 20, "ADS")
+    e.descrever()
+
+    # Imprime:
+    Nome: Lia, Idade: 20
+    Curso: ADS
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE ENTREGAR
+------------------------------------------------------------
+- Um único arquivo Python chamado:  exercicio3_estudante.py
+- O arquivo deve conter:
+    1. A definição da classe Pessoa
+    2. A definição da classe Estudante (herdando de Pessoa,
+       usando super() no construtor E sobrescrevendo descrever())
+    3. O bloco de teste com a saída demonstrada
+- O código deve rodar sem erros.
+- Em um comentário ao lado da linha super().__init__(...),
+  explique com suas palavras o que essa linha faz.
+
+
+------------------------------------------------------------
+DESAFIO OPCIONAL (não obrigatório)
+------------------------------------------------------------
+Crie uma terceira classe, "Professor", que também herda de
+Pessoa, tem um atributo novo "disciplina" e sobrescreve
+descrever() do mesmo jeito (chamando super().descrever() e
+acrescentando a disciplina). Teste Pessoa, Estudante e
+Professor lado a lado e observe como cada um descreve a si
+mesmo de forma diferente — isso é uma prévia do POLIMORFISMO,
+o próximo tema da aula.
+
+================================================================

@@ -1,0 +1,81 @@
+================================================================
+EXERCÍCIO 1 — VEÍCULOS
+================================================================
+
+------------------------------------------------------------
+CONTEXTO
+------------------------------------------------------------
+Você está começando a modelar um sistema de cadastro de
+veículos. Diferentes tipos de veículo (carro, moto, caminhão)
+compartilham características em comum: todos têm uma marca, um
+ano e podem ser ligados. Em vez de repetir esse código em cada
+classe, você vai usar HERANÇA: criar uma classe genérica e
+fazer as outras nascerem dela.
+
+Este exercício pratica o conceito central da aula: a relação
+"É UM" (um Carro É UM Veículo) e o reaproveitamento de código.
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE FAZER
+------------------------------------------------------------
+
+1) Crie uma classe chamada "Veiculo" (classe base / mãe) com:
+   - Um método __init__ que recebe e armazena dois atributos:
+       * marca  (texto, ex.: "Toyota")
+       * ano    (número inteiro, ex.: 2020)
+   - Um método chamado ligar() que imprime na tela:
+       "Veículo ligado"
+
+2) Crie uma classe chamada "Carro" que HERDA de Veiculo.
+   - O Carro NÃO precisa reescrever o __init__ nem o ligar():
+     ele já herda os dois automaticamente.
+   - Adicione ao Carro um método NOVO, exclusivo dele, chamado
+     abrir_porta_malas() que imprime:
+       "Porta-malas aberto"
+
+3) Crie uma classe chamada "Moto" que TAMBÉM HERDA de Veiculo.
+   - A Moto herda marca, ano e ligar().
+   - A Moto NÃO tem porta-malas (não adicione esse método nela).
+
+4) No final do arquivo, crie um pequeno teste:
+   - Crie um objeto Carro com uma marca e um ano à sua escolha.
+   - Crie um objeto Moto com uma marca e um ano à sua escolha.
+   - Chame ligar() nos dois.
+   - Chame abrir_porta_malas() apenas no Carro.
+   - Imprima a marca e o ano de cada um para confirmar que
+     os atributos foram herdados.
+
+
+------------------------------------------------------------
+EXEMPLO DE EXECUÇÃO (a sua saída pode variar conforme os
+valores escolhidos)
+------------------------------------------------------------
+    Marca do carro: Toyota | Ano: 2020
+    Veículo ligado
+    Porta-malas aberto
+    Marca da moto: Honda | Ano: 2019
+    Veículo ligado
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE ENTREGAR
+------------------------------------------------------------
+- Um único arquivo Python chamado:  exercicio1_veiculos.py
+- O arquivo deve conter:
+    1. A definição da classe Veiculo
+    2. A definição da classe Carro (herdando de Veiculo)
+    3. A definição da classe Moto (herdando de Veiculo)
+    4. O bloco de teste demonstrando o funcionamento
+- O código deve rodar sem erros ao ser executado.
+- Comente pelo menos uma linha explicando, com suas palavras,
+  onde está acontecendo a herança.
+
+
+------------------------------------------------------------
+DESAFIO OPCIONAL (não obrigatório)
+------------------------------------------------------------
+Crie uma terceira classe filha, "Caminhao", que também herda
+de Veiculo e tem um método próprio engatar_reboque() que
+imprime "Reboque engatado". Teste-a junto com as demais.
+
+================================================================
