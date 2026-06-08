@@ -1,0 +1,8 @@
+use as formas criadas no exercicio 1.
+
+Faça "area" retornar o valor, nao mais imprimir
+
+agora crie uma lista com varias formas diferentes, e faça uma função que soma as areas de todas elas
+
+*nao use if para controlar o tipo, a ideia é usar o polimorfismo*
+* use o laço de repetiçao FOR*

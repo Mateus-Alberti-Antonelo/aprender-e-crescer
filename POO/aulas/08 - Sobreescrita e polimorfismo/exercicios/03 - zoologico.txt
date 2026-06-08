@@ -1,0 +1,1 @@
+Reúna Cachorro, Gato e Vaca (todos filhos de Animal, cada um sobrescrevendo fazer_som()) numa lista e percorra com um for chamando o som de cada um.
