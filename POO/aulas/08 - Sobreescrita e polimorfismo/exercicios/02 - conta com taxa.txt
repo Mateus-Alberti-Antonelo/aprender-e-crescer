@@ -1,0 +1,7 @@
+*use a mesma classe Conta usada nos exercicios anteriores, ou crie uma nova classe Conta*
+
+
+crie ContaCorrente, e sobreescreva o método "depositar", que recebe o valor a ser depositado.
+Para conta corrente deve ser cobrada uma taxa de R$0,50 por depósito.
+
+*Use super().depositar, depois desconte a taxa

@@ -1,0 +1,12 @@
+Crie a classe Forma, com um método "area()"
+esse método deve imprimir "área nao definida"
+
+Depois crie a classe Quadrado, herdando de Forma
+Depoois crie a classe Circulo, herdando de Forma
+
+nas duas classes filhas, reescreva o comportamento do método "area()" para retornar o calculo correto, de acordo com a forma
+
+Quadrado deve retornar: base * altura
+Circulo deve retornar: pi * r*r
+
+dica: use a biblioteca math para o pi
