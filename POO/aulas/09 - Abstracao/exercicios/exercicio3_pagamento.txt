@@ -1,0 +1,102 @@
+================================================================
+EXERCÍCIO 3 — FORMAS DE PAGAMENTO
+Módulo 5: Abstração · Tema: Interface (contrato de comportamento)
+Linguagem: Python 3
+================================================================
+
+------------------------------------------------------------
+CONTEXTO
+------------------------------------------------------------
+Um sistema de loja precisa aceitar vários meios de pagamento:
+Pix, cartão, boleto e, no futuro, talvez outros. Todos eles
+têm uma coisa em comum: sabem "pagar" um valor. PORÉM, cada um
+processa o pagamento de um jeito completamente diferente, e
+não há lógica comum a ser compartilhada entre eles.
+
+Quando queremos apenas GARANTIR que um conjunto de classes
+saiba executar certas ações - sem fornecer código pronto -
+usamos uma INTERFACE: um contrato puro de comportamento.
+
+Em Python, uma forma de criar uma interface é uma classe
+abstrata (ABC) que contém SOMENTE métodos abstratos, sem
+nenhum método concreto.
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE FAZER
+------------------------------------------------------------
+
+1) Importe:
+       from abc import ABC, abstractmethod
+
+2) Crie a interface "MeioPagamento" como uma classe que:
+   - Herda de ABC.
+   - Tem UM único método abstrato: pagar(self, valor), sem
+     corpo. (É só o contrato: "todo meio de pagamento sabe
+     pagar um valor".)
+
+3) Crie três classes que implementam a interface:
+   - Pix    -> pagar(valor) imprime algo como
+               "Pagando R$ {valor} via Pix (instantâneo)"
+   - Cartao -> pagar(valor) imprime algo como
+               "Pagando R$ {valor} no cartão (parcelável)"
+   - Boleto -> pagar(valor) imprime algo como
+               "Boleto de R$ {valor} gerado (vence em 3 dias)"
+
+4) Escreva uma FUNÇÃO independente (fora das classes):
+       finalizar(meio, valor)
+   que recebe qualquer objeto MeioPagamento e chama
+   meio.pagar(valor).
+   IMPORTANTE: a função NÃO pode usar if para verificar o tipo
+   do meio (nada de "if isinstance" ou "if tipo == ..."). Ela
+   apenas confia no contrato e chama pagar().
+
+5) No final, teste passando os três meios diferentes para a
+   MESMA função finalizar().
+
+
+------------------------------------------------------------
+COMO TESTAR
+------------------------------------------------------------
+    finalizar(Pix(), 150)
+    finalizar(Cartao(), 150)
+    finalizar(Boleto(), 150)
+
+
+------------------------------------------------------------
+SAÍDA ESPERADA (as mensagens podem variar)
+------------------------------------------------------------
+    Pagando R$ 150 via Pix (instantâneo)
+    Pagando R$ 150 no cartão (parcelável)
+    Boleto de R$ 150 gerado (vence em 3 dias)
+
+
+------------------------------------------------------------
+PONTOS DE ATENÇÃO
+------------------------------------------------------------
+[ ] MeioPagamento herda de ABC e tem APENAS o método abstrato
+    pagar() - nenhum método concreto (é uma interface).
+[ ] Pix, Cartao e Boleto implementam pagar() cada um à sua
+    maneira.
+[ ] A função finalizar() funciona com qualquer um dos três
+    SEM usar if para checar o tipo (isso é polimorfismo
+    apoiado no contrato da interface).
+[ ] Tentar instanciar MeioPagamento() diretamente deve dar
+    TypeError.
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE ENTREGAR
+------------------------------------------------------------
+- Um único arquivo Python chamado:  exercicio3_pagamento.py
+- O arquivo deve conter:
+    1. A interface MeioPagamento (ABC com pagar() abstrato)
+    2. As classes Pix, Cartao e Boleto implementando pagar()
+    3. A função finalizar(meio, valor)
+    4. O bloco de teste com os três meios
+- O código deve rodar sem erros.
+- Em um comentário, responda em uma frase: se amanhã eu criar
+  uma nova classe CriptoMoeda que implemente MeioPagamento,
+  preciso alterar a função finalizar()? Por quê?
+
+================================================================

@@ -1,0 +1,90 @@
+================================================================
+EXERCÍCIO 1 — INSTRUMENTOS MUSICAIS
+Módulo 5: Abstração · Tema: Classe abstrata e método abstrato
+Linguagem: Python 3
+================================================================
+
+------------------------------------------------------------
+CONTEXTO
+------------------------------------------------------------
+Todo instrumento musical pode ser "tocado", mas cada um produz
+som de uma forma diferente: um violão é dedilhado, uma bateria
+é percutida. Não faz sentido existir um "instrumento genérico"
+sendo tocado — só existem instrumentos concretos.
+
+Esse é o cenário perfeito para uma CLASSE ABSTRATA: queremos
+definir que todo instrumento OBRIGATORIAMENTE sabe tocar, sem
+dizer ainda COMO cada um faz isso. A própria linguagem vai
+impedir que alguém crie um instrumento sem essa capacidade.
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE FAZER
+------------------------------------------------------------
+
+1) Importe as ferramentas de abstração do Python:
+       from abc import ABC, abstractmethod
+
+2) Crie uma classe abstrata chamada "Instrumento" que:
+   - Herda de ABC.
+   - Tem um método abstrato chamado tocar(), marcado com o
+     decorador @abstractmethod. Esse método NÃO tem corpo
+     (use apenas "..." ou "pass").
+
+3) Crie a classe "Violao" que herda de Instrumento e
+   IMPLEMENTA o método tocar() com uma mensagem própria,
+   por exemplo: "Dlim dlim... (som do violão)".
+
+4) Crie a classe "Bateria" que herda de Instrumento e
+   IMPLEMENTA tocar() com outra mensagem, por exemplo:
+   "Tum tá! Tum tum tá! (som da bateria)".
+
+5) No final do arquivo, faça os testes descritos abaixo.
+
+
+------------------------------------------------------------
+COMO TESTAR
+------------------------------------------------------------
+    # Deve funcionar normalmente:
+    Violao().tocar()
+    Bateria().tocar()
+
+    # Deve dar erro (TypeError) - descomente para confirmar:
+    # Instrumento()
+
+
+------------------------------------------------------------
+SAÍDA ESPERADA (as mensagens podem variar)
+------------------------------------------------------------
+    Dlim dlim... (som do violão)
+    Tum tá! Tum tum tá! (som da bateria)
+
+
+------------------------------------------------------------
+PONTOS DE ATENÇÃO
+------------------------------------------------------------
+[ ] A classe Instrumento herda de ABC.
+[ ] O método tocar() na classe Instrumento está marcado com
+    @abstractmethod e não tem implementação.
+[ ] Violao e Bateria implementam tocar() cada uma à sua
+    maneira.
+[ ] Tentar executar Instrumento() levanta TypeError, pois
+    uma classe abstrata não pode ser instanciada diretamente.
+[ ] Se você criar uma classe filha SEM implementar tocar(),
+    tentar instanciá-la também deve dar TypeError - teste isso
+    para confirmar que entendeu o mecanismo.
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE ENTREGAR
+------------------------------------------------------------
+- Um único arquivo Python chamado:  exercicio1_instrumentos.py
+- O arquivo deve conter:
+    1. A classe abstrata Instrumento (com tocar() abstrato)
+    2. As classes Violao e Bateria implementando tocar()
+    3. O bloco de teste demonstrando o funcionamento
+- O código deve rodar sem erros.
+- Em um comentário, explique em uma frase: por que não
+  conseguimos criar um objeto da classe Instrumento?
+
+================================================================

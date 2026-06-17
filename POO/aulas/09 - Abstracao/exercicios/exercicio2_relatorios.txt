@@ -1,0 +1,95 @@
+================================================================
+EXERCÍCIO 2 — RELATÓRIOS
+Módulo 5: Abstração · Tema: método abstrato + método concreto
+Linguagem: Python 3
+================================================================
+
+------------------------------------------------------------
+CONTEXTO
+------------------------------------------------------------
+Em muitos sistemas, diferentes relatórios compartilham uma
+parte fixa (um cabeçalho padrão, a forma de exportar) mas têm
+um conteúdo que muda de acordo com o tipo (vendas, estoque,
+financeiro...).
+
+Uma classe abstrata é ideal aqui porque ela pode conter os
+DOIS tipos de método ao mesmo tempo:
+  - um método ABSTRATO, que cada filha é obrigada a definir
+    (a parte que varia);
+  - um método CONCRETO, já pronto, que todas as filhas
+    herdam e reutilizam (a parte comum).
+
+Esse padrão evita repetir a lógica comum em cada subclasse.
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE FAZER
+------------------------------------------------------------
+
+1) Importe:
+       from abc import ABC, abstractmethod
+
+2) Crie uma classe abstrata chamada "Relatorio" que tenha:
+   - Um método ABSTRATO chamado gerar_conteudo(), sem corpo.
+     (Ele representa a parte que cada relatório faz à sua
+      maneira.)
+   - Um método CONCRETO (implementado de verdade) chamado
+     exportar(self) que:
+       * imprime um cabeçalho fixo, por exemplo:
+         "===== RELATÓRIO =====";
+       * em seguida, imprime o que for retornado pela chamada
+         de self.gerar_conteudo().
+
+3) Crie a classe "RelatorioVendas" que herda de Relatorio e
+   implementa gerar_conteudo() retornando um texto sobre
+   vendas, por exemplo: "Total de vendas: R$ 15.000".
+
+4) Crie a classe "RelatorioEstoque" que herda de Relatorio e
+   implementa gerar_conteudo() retornando um texto sobre
+   estoque, por exemplo: "Itens em estoque: 240".
+
+5) No final, crie um objeto de cada relatório e chame
+   exportar() em ambos.
+
+
+------------------------------------------------------------
+SAÍDA ESPERADA (os textos podem variar)
+------------------------------------------------------------
+    ===== RELATÓRIO =====
+    Total de vendas: R$ 15.000
+    ===== RELATÓRIO =====
+    Itens em estoque: 240
+
+
+------------------------------------------------------------
+PONTOS DE ATENÇÃO
+------------------------------------------------------------
+[ ] Relatorio herda de ABC.
+[ ] gerar_conteudo() é abstrato (@abstractmethod, sem corpo).
+[ ] exportar() é concreto: tem implementação e NÃO é marcado
+    como abstrato.
+[ ] O método concreto exportar() chama self.gerar_conteudo()
+    sem saber qual relatório específico está rodando - ele
+    confia que a filha implementou esse método.
+[ ] O cabeçalho impresso por exportar() é o mesmo nos dois
+    relatórios; apenas o conteúdo muda.
+[ ] Tentar instanciar Relatorio() diretamente deve dar
+    TypeError.
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE ENTREGAR
+------------------------------------------------------------
+- Um único arquivo Python chamado:  exercicio2_relatorios.py
+- O arquivo deve conter:
+    1. A classe abstrata Relatorio (com gerar_conteudo()
+       abstrato e exportar() concreto)
+    2. RelatorioVendas e RelatorioEstoque implementando
+       gerar_conteudo()
+    3. O bloco de teste chamando exportar() em cada um
+- O código deve rodar sem erros.
+- Em um comentário, responda em uma frase: qual vantagem
+  tivemos em colocar exportar() na classe mãe em vez de
+  repeti-lo em cada filha?
+
+================================================================

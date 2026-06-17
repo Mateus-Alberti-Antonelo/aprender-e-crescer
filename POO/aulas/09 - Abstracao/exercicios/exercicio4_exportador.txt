@@ -1,0 +1,109 @@
+================================================================
+EXERCÍCIO 4 — SISTEMA DE EXPORTAÇÃO  (DESAFIO)
+Módulo 5: Abstração · Tema: integração de todos os conceitos
+Linguagem: Python 3
+================================================================
+
+------------------------------------------------------------
+CONTEXTO
+------------------------------------------------------------
+Sistemas frequentemente precisam exportar os mesmos dados em
+formatos diferentes (JSON, CSV, XML...). A ação de "salvar" é
+comum a todos, mas a forma de "formatar" os dados muda de um
+formato para outro.
+
+Este desafio reúne tudo o que vimos no módulo num só lugar:
+  - ABSTRAÇÃO       (classe abstrata Exportador)
+  - MÉTODO ABSTRATO (formatar - cada formato faz o seu)
+  - MÉTODO CONCRETO (salvar - comum a todos)
+  - HERANÇA + super (construtor reaproveitado)
+  - POLIMORFISMO    (uma lista de exportadores diferentes)
+
+Leia com calma: o exercício é maior, mas cada parte usa algo
+que você já praticou.
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE FAZER
+------------------------------------------------------------
+
+1) Importe:
+       from abc import ABC, abstractmethod
+
+2) Crie uma classe abstrata "Exportador" com:
+   - Um construtor __init__(self, dados) que armazena os dados
+     recebidos em self.dados. (Pode ser uma lista, um
+     dicionário, etc. - você escolhe um exemplo simples.)
+   - Um método ABSTRATO formatar(self), sem corpo. Ele deve
+     RETORNAR (não imprimir) os dados já formatados como texto.
+   - Um método CONCRETO salvar(self) que:
+       * imprime "Salvando...";
+       * imprime o resultado de self.formatar().
+
+3) Crie a classe "ExportadorJSON" que herda de Exportador:
+   - Use super().__init__(dados) no construtor.
+   - Implemente formatar() retornando os dados em um formato
+     que lembre JSON (pode ser uma representação simples em
+     texto - não precisa usar a biblioteca json).
+
+4) Crie a classe "ExportadorCSV" que herda de Exportador:
+   - Também usa super().__init__(dados).
+   - Implemente formatar() retornando os dados separados por
+     vírgulas (estilo CSV).
+
+5) Crie uma LISTA com pelo menos um ExportadorJSON e um
+   ExportadorCSV (cada um com seus dados) e percorra essa lista
+   com um laço FOR, chamando salvar() em cada um.
+   IMPORTANTE: não use if para verificar o tipo do exportador.
+
+6) EXTRA (obrigatório neste desafio): ao final, em um trecho
+   separado, tente criar um Exportador diretamente
+   (Exportador(...)) e confirme que isso levanta TypeError.
+   Você pode capturar o erro com try/except e imprimir uma
+   mensagem indicando que a criação foi corretamente impedida.
+
+
+------------------------------------------------------------
+EXEMPLO DE SAÍDA POSSÍVEL (varia conforme seus dados)
+------------------------------------------------------------
+    Salvando...
+    { "nome": "Ana", "idade": 30 }
+    Salvando...
+    nome,idade
+    Ana,30
+    Erro esperado: não é possível instanciar Exportador diretamente.
+
+
+------------------------------------------------------------
+PONTOS DE ATENÇÃO
+------------------------------------------------------------
+[ ] Exportador herda de ABC e tem:
+       - construtor com self.dados
+       - formatar() abstrato (retorna texto)
+       - salvar() concreto (imprime "Salvando..." + formatar())
+[ ] ExportadorJSON e ExportadorCSV usam super().__init__(dados)
+    e implementam formatar() de formas diferentes.
+[ ] formatar() RETORNA o texto; salvar() é quem imprime.
+[ ] O laço FOR chama salvar() em exportadores de tipos
+    diferentes SEM usar if de tipo (polimorfismo).
+[ ] A tentativa de criar Exportador(...) diretamente é
+    barrada com TypeError (demonstrada no código).
+
+
+------------------------------------------------------------
+O QUE VOCÊ DEVE ENTREGAR
+------------------------------------------------------------
+- Um único arquivo Python chamado:  exercicio4_exportador.py
+- O arquivo deve conter:
+    1. A classe abstrata Exportador
+    2. ExportadorJSON e ExportadorCSV
+    3. A lista de exportadores percorrida com FOR + salvar()
+    4. O trecho que demonstra o TypeError ao instanciar a
+       classe abstrata
+- O código deve rodar sem erros (a não ser o TypeError que
+  você provoca de propósito e trata no try/except).
+- Em um comentário no topo do arquivo, liste quais conceitos
+  do módulo aparecem no seu código (abstração, método
+  abstrato, método concreto, herança, super, polimorfismo).
+
+================================================================
